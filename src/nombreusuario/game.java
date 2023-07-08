@@ -472,6 +472,7 @@ public class game extends javax.swing.JFrame {
         if (aparecerTxtCoordenadas == 4){
             Coordenadas.setVisible(true);
             MensajeCoordenadas.setVisible(true);
+            imprimirMatriz();
         }
     }//GEN-LAST:event_ConfirmarMouseClicked
     //Audio
@@ -564,7 +565,7 @@ public void cargar_Imag_Soun(){
     //...
     }
    
-int drawnRectanglesCount = 0;
+/*int drawnRectanglesCount = 0;
 int rectanglesDrawn = 0;
 JLayeredPane Orden = new JLayeredPane();
 int[] rectangleSizes = {2, 2, 3, 4};
@@ -695,6 +696,156 @@ public void clearLabels(JLabel[][] labels, int x, int y) {
     if (x >= 1 && x <= 9 && y >= 1 && y <= 9 && labels[x][y] != null) {
         labels[x][y].setOpaque(false);
         labels[x][y].setBackground(null);
+    }
+}*/
+   
+   int drawnRectanglesCount = 0;
+int rectanglesDrawn = 0;
+JLayeredPane Orden = new JLayeredPane();
+int[] rectangleSizes = {2, 2, 3, 4};
+int currentX = -1;
+int currentY = -1;
+JLabel[][] labels = new JLabel[10][10];
+List<List<Point>> confirmedRectangles = new ArrayList<>();
+List<Point> currentRectangle = new ArrayList<>();
+boolean[][] celdasRojas = new boolean[10][10];
+
+public void agregarBotones(JPanel panel) {
+    panel.setLayout(new GridLayout(9, 9));
+    JLabel[][] labels = new JLabel[10][10];
+    for (int i = 1; i <= 9; i++) {
+        for (int j = 1; j <= 9; j++) {
+            final int x = j;
+            final int y = i;
+            labels[j][i] = new JLabel();
+            labels[j][i].setPreferredSize(new Dimension(45, 45));
+            labels[j][i].setBorder(BorderFactory.createLineBorder(Color.WHITE));          
+            labels[j][i].addMouseListener(new MouseAdapter() {
+                boolean isVertical = false;
+int direction = 0; // Agregamos una variable para rastrear la dirección del rectángulo
+
+@Override
+public void mouseClicked(MouseEvent e) {
+    if (rectanglesDrawn >= rectangleSizes.length) return;
+    System.out.println("Label presionado en la posición: (" + x + ", " + y + ")");
+    
+    int size = rectangleSizes[rectanglesDrawn];
+    
+    for (Point p : currentRectangle) {
+        clearLabels(labels, p.x, p.y);
+    }
+    currentRectangle.clear();
+    
+    
+    // Check if the new position is already occupied by a confirmed rectangle
+    Confirmar.setVisible(true); 
+    ConfirmarP.setVisible(true);
+    boolean canDraw = false;
+    for (int d = 0; d < 4; d++) { // Verificamos si el rectángulo se puede dibujar en cada una de las cuatro direcciones
+        direction = (direction + 1) % 4; // Cambiamos la dirección cada vez que se verifica una nueva dirección
+        canDraw = true;
+        if (direction == 0 || direction == 2) { // Verificamos si la dirección es hacia la derecha o hacia la izquierda
+            for (int i = 0; i < size; i++) {
+                int newX = x + i;
+                if (direction == 2) newX = x - i; // Si la dirección es hacia la izquierda, restamos en lugar de sumar
+                if (newX > 9 || newX < 1) { // Si el nuevo valor de X está fuera de los límites, no dibujamos el rectángulo
+                  
+                    canDraw = false;
+                    break;
+                }
+                for (List<Point> confirmedRectangle : confirmedRectangles) {
+                    for (Point p : confirmedRectangle) {
+                        if (p.x == newX && p.y == y) {
+                            canDraw = false;
+                            break;
+                        }
+                    }
+                    if (!canDraw) break;
+                }
+            }
+        } else { // La dirección es hacia arriba o hacia abajo
+            for (int i = 0; i < size; i++) {
+                int newY = y + i;
+                if (direction == 3) newY = y - i; // Si la dirección es hacia arriba, restamos en lugar de sumar
+                if (newY > 9 || newY < 1) { // Si el nuevo valor de Y está fuera de los límites, no dibujamos el rectángulo
+                    canDraw = false;
+                    break;
+                }
+                for (List<Point> confirmedRectangle : confirmedRectangles) {
+                    for (Point p : confirmedRectangle) {
+                        if (p.x == x && p.y == newY) {
+                            canDraw = false;
+                            break;
+                        }
+                    }
+                    if (!canDraw) break;
+                }
+            }
+        }
+        if (canDraw) break; // Si encontramos una dirección en la que el rectángulo se puede dibujar, salimos del bucle
+    }
+    if (canDraw) {
+        if (direction == 0 || direction == 2) { // Dibujamos el rectángulo hacia la derecha o hacia la izquierda
+            for (int i = 0; i < size; i++) {
+                int newX = x + i;
+                if (direction == 2) newX = x - i; // Si la dirección es hacia la izquierda, restamos en lugar de sumar
+                if (newX > 9 || newX < 1) continue; // Si el nuevo valor de X está fuera de los límites, no dibujamos esa celda
+                if (labels[newX][y] != null) {
+                    labels[newX][y].setOpaque(true);
+                    labels[newX][y].setBackground(Color.RED);
+                    celdasRojas[newX][y] = true; 
+                    
+                    currentRectangle.add(new Point(newX, y));
+                }
+            }
+        } else { // Dibujamos el rectángulo hacia arriba o hacia abajo
+            for (int i = 0; i < size; i++) {
+                int newY = y + i;
+                if (direction == 3) newY = y - i; // Si la dirección es hacia arriba, restamos en lugar de sumar
+                if (newY > 9 || newY < 1) continue; // Si el nuevo valor de Y está fuera de los límites, no dibujamos esa celda
+                if (labels[x][newY] != null) {
+                    labels[x][newY].setOpaque(true);
+                    labels[x][newY].setBackground(Color.RED);
+                    celdasRojas[x][newY] = true; 
+                    currentRectangle.add(new Point(x, newY));
+                }
+            }
+        }
+    }
+    
+    currentX = x;
+    currentY = y;
+    
+    
+}
+            });
+            panel.add(labels[j][i]); 
+            
+        }
+    }
+     cargar_Imag_Soun();
+}
+
+
+
+public void clearLabels(JLabel[][] labels, int x, int y) {
+    if (x >= 1 && x <= 9 && y >= 1 && y <= 9 && labels[x][y] != null) {
+        labels[x][y].setOpaque(false);
+        labels[x][y].setBackground(null);
+        celdasRojas[x][y] = false; 
+    }
+}
+
+public void imprimirMatriz() {
+    for (int i = 1; i <= 9; i++) {
+        for (int j = 1; j <= 9; j++) {
+            if (celdasRojas[j][i]) {
+                System.out.print("R ");
+            } else {
+                System.out.print("- ");
+            }
+        }
+        System.out.println();
     }
 }
 
