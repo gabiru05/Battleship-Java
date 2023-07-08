@@ -4,6 +4,7 @@
  */
 package nombreusuario;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
 import javax.swing.Timer;
@@ -50,16 +51,13 @@ public class nombres extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        MinBt = new javax.swing.JPanel();
-        MinimizarM = new javax.swing.JLabel();
-        ExitBt = new javax.swing.JPanel();
-        SalirX = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
         MensajeError = new javax.swing.JLabel();
+        content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFocusCycleRoot(false);
+        setFocusable(false);
         setLocationByPlatform(true);
-        setUndecorated(true);
         setResizable(false);
 
         BG.setBackground(new java.awt.Color(255, 255, 255));
@@ -133,7 +131,7 @@ public class nombres extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ENTRAR");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
@@ -159,7 +157,7 @@ public class nombres extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("SALIR");
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
@@ -183,106 +181,25 @@ public class nombres extends javax.swing.JFrame {
 
         BG.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, -1, 40));
 
-        MinBt.setBackground(new java.awt.Color(255, 255, 255));
-
-        MinimizarM.setFont(new java.awt.Font("Roboto Light", 1, 40)); // NOI18N
-        MinimizarM.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        MinimizarM.setText("-");
-        MinimizarM.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        MinimizarM.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MinimizarMMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                MinimizarMMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                MinimizarMMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout MinBtLayout = new javax.swing.GroupLayout(MinBt);
-        MinBt.setLayout(MinBtLayout);
-        MinBtLayout.setHorizontalGroup(
-            MinBtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MinBtLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(MinimizarM, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        MinBtLayout.setVerticalGroup(
-            MinBtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MinBtLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(MinimizarM, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        BG.add(MinBt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 30, 30));
-
-        ExitBt.setBackground(new java.awt.Color(255, 255, 255));
-
-        SalirX.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        SalirX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        SalirX.setText("X");
-        SalirX.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        SalirX.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SalirXMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                SalirXMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                SalirXMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout ExitBtLayout = new javax.swing.GroupLayout(ExitBt);
-        ExitBt.setLayout(ExitBtLayout);
-        ExitBtLayout.setHorizontalGroup(
-            ExitBtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExitBtLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(SalirX, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        ExitBtLayout.setVerticalGroup(
-            ExitBtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExitBtLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(SalirX, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        BG.add(ExitBt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jPanel5MouseDragged(evt);
-            }
-        });
-        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel5MousePressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 740, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
-        BG.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 740, 30));
-
         MensajeError.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         MensajeError.setForeground(new java.awt.Color(255, 0, 0));
         MensajeError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         BG.add(MensajeError, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 330, 20));
+
+        content.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+
+        BG.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -311,44 +228,7 @@ public class nombres extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreusuario2ActionPerformed
 
-    private void jPanel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MousePressed
-        xMouse = evt.getX();
-        yMouse = evt.getY();
-    }//GEN-LAST:event_jPanel5MousePressed
-
-    private void jPanel5MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseDragged
-        int x = getLocation().x + evt.getX() - xMouse;
-        int y = getLocation().y + evt.getY() - yMouse;
-        this.setLocation(x , y );
-    }//GEN-LAST:event_jPanel5MouseDragged
-
-    private void SalirXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirXMouseEntered
-        ExitBt.setBackground(Color.red);
-        SalirX.setForeground(Color.white);
-    }//GEN-LAST:event_SalirXMouseEntered
-
-    private void SalirXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirXMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_SalirXMouseClicked
-
-    private void SalirXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirXMouseExited
-        ExitBt.setBackground(Color.white);
-        SalirX.setForeground(Color.black);
-    }//GEN-LAST:event_SalirXMouseExited
-
     
-    private void MinimizarMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMMouseClicked
-        this.setExtendedState(ICONIFIED);
-    }//GEN-LAST:event_MinimizarMMouseClicked
-
-    private void MinimizarMMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMMouseEntered
-        MinBt.setBackground(Color.lightGray);
-    }//GEN-LAST:event_MinimizarMMouseEntered
-
-    private void MinimizarMMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMMouseExited
-        MinBt.setBackground(Color.white);
-    }//GEN-LAST:event_MinimizarMMouseExited
-
     private void nombreusuario1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreusuario1MousePressed
          if (nombreusuario1.getText().equals("Por favor. Ingrese su nombre")){
             nombreusuario1.setFocusable(true);
@@ -392,10 +272,12 @@ public class nombres extends javax.swing.JFrame {
             MensajeError.setText("Los nombres de usuario son iguales.");
             MensajeError.setVisible(true);
         } else {*/
-            game nose = new game();
+            Player1 nose = new Player1();
            
             nose.setVisible(true);
             this.setVisible(false);
+        
+            
         /*}
     } else {
         // Mostrar mensaje de error en el panel
@@ -440,17 +322,13 @@ public class nombres extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BG;
-    private javax.swing.JPanel ExitBt;
     private javax.swing.JLabel MensajeError;
-    private javax.swing.JPanel MinBt;
-    private javax.swing.JLabel MinimizarM;
-    private javax.swing.JLabel SalirX;
+    private javax.swing.JPanel content;
     private javax.swing.JLabel imagenbarco;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel logo;
     private javax.swing.JTextField nombreusuario1;
     private javax.swing.JTextField nombreusuario2;

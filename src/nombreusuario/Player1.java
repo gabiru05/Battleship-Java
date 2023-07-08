@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package nombreusuario;
+
 //Gaby
 //gaby2
 
@@ -47,14 +48,21 @@ import javax.swing.table.TableColumnModel;
  *
  * @author kenet
  */
-public class game extends javax.swing.JFrame {
+public class Player1 extends javax.swing.JFrame {
+    
 
     /**
-     * Creates new form game
+     * Creates new form Player1
      */
-    int xMouse, yMouse;
-    public game() {
+    int xMouse, 
+
+    /**
+     * Creates new form Player1
+     */
+    yMouse;
+    public Player1() {
         initComponents();
+        
         agregarBotones(CuadroBarcos);
         Coordenadas.setVisible(false);
         MensajeCoordenadas.setVisible(false);
@@ -70,11 +78,6 @@ public class game extends javax.swing.JFrame {
     private void initComponents() {
 
         Juego = new javax.swing.JPanel();
-        paneldesalir = new javax.swing.JPanel();
-        BotonX = new javax.swing.JLabel();
-        paneldeminimalizar = new javax.swing.JPanel();
-        BotonMinizar = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         CuadroBarcos = new FondoPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -104,118 +107,20 @@ public class game extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
-        setUndecorated(true);
         setResizable(false);
 
         Juego.setBackground(new java.awt.Color(255, 255, 255));
         Juego.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        paneldesalir.setBackground(new java.awt.Color(255, 255, 255));
-
-        BotonX.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        BotonX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        BotonX.setText("X");
-        BotonX.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotonX.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotonXMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                BotonXMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                BotonXMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout paneldesalirLayout = new javax.swing.GroupLayout(paneldesalir);
-        paneldesalir.setLayout(paneldesalirLayout);
-        paneldesalirLayout.setHorizontalGroup(
-            paneldesalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneldesalirLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(BotonX, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        paneldesalirLayout.setVerticalGroup(
-            paneldesalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneldesalirLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(BotonX, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        Juego.add(paneldesalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 30, 30));
-
-        paneldeminimalizar.setBackground(new java.awt.Color(255, 255, 255));
-
-        BotonMinizar.setFont(new java.awt.Font("Roboto Light", 1, 40)); // NOI18N
-        BotonMinizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        BotonMinizar.setText("-");
-        BotonMinizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotonMinizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BotonMinizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotonMinizarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                BotonMinizarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                BotonMinizarMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout paneldeminimalizarLayout = new javax.swing.GroupLayout(paneldeminimalizar);
-        paneldeminimalizar.setLayout(paneldeminimalizarLayout);
-        paneldeminimalizarLayout.setHorizontalGroup(
-            paneldeminimalizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paneldeminimalizarLayout.createSequentialGroup()
-                .addComponent(BotonMinizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        paneldeminimalizarLayout.setVerticalGroup(
-            paneldeminimalizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneldeminimalizarLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(BotonMinizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        Juego.add(paneldeminimalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 30, 30));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jPanel2MouseDragged(evt);
-            }
-        });
-        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel2MousePressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        Juego.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 30));
-
         javax.swing.GroupLayout CuadroBarcosLayout = new javax.swing.GroupLayout(CuadroBarcos);
         CuadroBarcos.setLayout(CuadroBarcosLayout);
         CuadroBarcosLayout.setHorizontalGroup(
             CuadroBarcosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
         );
         CuadroBarcosLayout.setVerticalGroup(
             CuadroBarcosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
         );
 
         Juego.add(CuadroBarcos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 405, 405));
@@ -321,7 +226,7 @@ public class game extends javax.swing.JFrame {
         Confirmar.setForeground(new java.awt.Color(255, 255, 255));
         Confirmar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Confirmar.setText("CONFIRMAR");
-        Confirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Confirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Confirmar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ConfirmarMouseClicked(evt);
@@ -332,9 +237,7 @@ public class game extends javax.swing.JFrame {
         ConfirmarP.setLayout(ConfirmarPLayout);
         ConfirmarPLayout.setHorizontalGroup(
             ConfirmarPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConfirmarPLayout.createSequentialGroup()
-                .addComponent(Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(Confirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
         ConfirmarPLayout.setVerticalGroup(
             ConfirmarPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,7 +246,7 @@ public class game extends javax.swing.JFrame {
                 .addComponent(Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        Juego.add(ConfirmarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 430, 100, 40));
+        Juego.add(ConfirmarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 430, 100, 40));
 
         Music_boton.setText("Music");
         Music_boton.addActionListener(new java.awt.event.ActionListener() {
@@ -358,7 +261,7 @@ public class game extends javax.swing.JFrame {
         MensajeCoordenadas.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         MensajeCoordenadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         MensajeCoordenadas.setText("Ingrese coordenadas de ataque");
-        Juego.add(MensajeCoordenadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, 220, -1));
+        Juego.add(MensajeCoordenadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 220, 20));
 
         Coordenadas.setForeground(new java.awt.Color(153, 153, 153));
         Coordenadas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -373,14 +276,14 @@ public class game extends javax.swing.JFrame {
                 CoordenadasActionPerformed(evt);
             }
         });
-        Juego.add(Coordenadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(623, 310, 60, 30));
+        Juego.add(Coordenadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 300, 60, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Juego, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Juego, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -391,44 +294,6 @@ public class game extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void BotonXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonXMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_BotonXMouseClicked
-
-    private void BotonXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonXMouseEntered
-        paneldesalir.setBackground(Color.red);
-        BotonX.setForeground(Color.white);
-    }//GEN-LAST:event_BotonXMouseEntered
-
-    private void BotonXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonXMouseExited
-        paneldesalir.setBackground(Color.white);
-        BotonX.setForeground(Color.black);
-    }//GEN-LAST:event_BotonXMouseExited
-
-    private void BotonMinizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonMinizarMouseClicked
-        this.setExtendedState(ICONIFIED);
-    }//GEN-LAST:event_BotonMinizarMouseClicked
-
-    private void BotonMinizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonMinizarMouseEntered
-        paneldeminimalizar.setBackground(Color.lightGray);
-    }//GEN-LAST:event_BotonMinizarMouseEntered
-
-    private void BotonMinizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonMinizarMouseExited
-        paneldeminimalizar.setBackground(Color.white);
-    }//GEN-LAST:event_BotonMinizarMouseExited
-
-    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
-        xMouse = evt.getX();
-        yMouse = evt.getY();
-    }//GEN-LAST:event_jPanel2MousePressed
-
-    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
-        int x = getLocation().x + evt.getX() - xMouse;
-        int y = getLocation().y + evt.getY() - yMouse;
-        this.setLocation(x , y );
-        jPanel2.setDoubleBuffered(true);
-    }//GEN-LAST:event_jPanel2MouseDragged
    
     
    
@@ -472,7 +337,10 @@ public class game extends javax.swing.JFrame {
         if (aparecerTxtCoordenadas == 4){
             Coordenadas.setVisible(true);
             MensajeCoordenadas.setVisible(true);
-            imprimirMatriz();
+            //imprimirMatriz();
+            EsperaTurno hola = new EsperaTurno();
+            hola.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_ConfirmarMouseClicked
     //Audio
@@ -699,7 +567,9 @@ public void clearLabels(JLabel[][] labels, int x, int y) {
     }
 }*/
    
-   int drawnRectanglesCount = 0;
+   
+
+int drawnRectanglesCount = 0;
 int rectanglesDrawn = 0;
 JLayeredPane Orden = new JLayeredPane();
 int[] rectangleSizes = {2, 2, 3, 4};
@@ -811,6 +681,12 @@ public void mouseClicked(MouseEvent e) {
                 }
             }
         }
+        redcells = new boolean[10][10];
+        for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            redcells[i][j] = celdasRojas[i][j];
+        }
+    }
     }
     
     currentX = x;
@@ -826,6 +702,8 @@ public void mouseClicked(MouseEvent e) {
      cargar_Imag_Soun();
 }
 
+public static boolean[][] redcells;
+
 
 
 public void clearLabels(JLabel[][] labels, int x, int y) {
@@ -833,19 +711,6 @@ public void clearLabels(JLabel[][] labels, int x, int y) {
         labels[x][y].setOpaque(false);
         labels[x][y].setBackground(null);
         celdasRojas[x][y] = false; 
-    }
-}
-
-public void imprimirMatriz() {
-    for (int i = 1; i <= 9; i++) {
-        for (int j = 1; j <= 9; j++) {
-            if (celdasRojas[j][i]) {
-                System.out.print("R ");
-            } else {
-                System.out.print("- ");
-            }
-        }
-        System.out.println();
     }
 }
 
@@ -865,13 +730,13 @@ public void imprimirMatriz() {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Player1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Player1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Player1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Player1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
  
         
@@ -881,14 +746,12 @@ public void imprimirMatriz() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
             
-                new game().setVisible(true);
+                new Player1().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel BotonMinizar;
-    private javax.swing.JLabel BotonX;
     private javax.swing.JLabel Confirmar;
     private javax.swing.JPanel ConfirmarP;
     private javax.swing.JTextField Coordenadas;
@@ -916,8 +779,5 @@ public void imprimirMatriz() {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel paneldeminimalizar;
-    private javax.swing.JPanel paneldesalir;
     // End of variables declaration//GEN-END:variables
 }
