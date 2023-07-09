@@ -29,6 +29,7 @@ import javax.swing.Timer;
 
 public class Player2 extends javax.swing.JFrame {
    
+    private static Boolean[][] estadoJuego = new Boolean[10][10];
     private EsperaTurno esperar = new EsperaTurno();
     boolean[][] celdasR1 = new boolean[10][10];
     static boolean BarcosGuardados = false;
@@ -42,7 +43,7 @@ public class Player2 extends javax.swing.JFrame {
             MensajeCoordenadasP2.setVisible(false);
             BarcosGuardados = true; // Marcamos las posiciones de los barcos como ya guardadas
         } else {
-            AgregarPosicionesBarcos(cuadroBarcos2, CoordenadasP2);
+            Ataque_Vida(cuadroBarcos2, CoordenadasP2);
             Confirmar.setVisible(true);
             ConfirmarP.setVisible(true);
 
@@ -561,9 +562,7 @@ public void clearLabels(JLabel[][] labels, int x, int y) {
 
 }*/
 
-Boolean[][] estadoJuego = new Boolean[10][10];
-
-public void AgregarPosicionesBarcos(JPanel panel, JTextField CoordenadasP1) {
+public void Ataque_Vida(JPanel panel, JTextField CoordenadasP1) {
     panel.setLayout(new GridLayout(9, 9));
     JLabel[][] labels = new JLabel[10][10];
     for (int i = 1; i <= 9; i++) {
@@ -613,7 +612,7 @@ public void AgregarPosicionesBarcos(JPanel panel, JTextField CoordenadasP1) {
                         estadoJuego[x][y] = false;
                     }
 
-                    Timer timer = new Timer(2000, new ActionListener() {
+                    Timer timer = new Timer(1000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             esperar.esperar();

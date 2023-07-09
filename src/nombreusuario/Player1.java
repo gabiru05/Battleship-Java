@@ -58,6 +58,7 @@ public class Player1 extends javax.swing.JFrame {
     
 
    
+    private static Boolean[][] estadoJuego = new Boolean[10][10];
     boolean[][] celdasR2 = new boolean[10][10];
     private EsperaTurno esperar = new EsperaTurno();;
     static boolean BarcosGuardados = false;
@@ -73,7 +74,7 @@ public class Player1 extends javax.swing.JFrame {
             MensajeCoordenadasP1.setVisible(false);
             BarcosGuardados = true; // Marcamos las posiciones de los barcos como ya guardadas
         } else {
-            AgregarPosicionesBarcos(CuadroBarcos, CoordenadasP1);
+            coordenadas_de_Ataque_y_vida(CuadroBarcos, CoordenadasP1);
             Confirmar.setVisible(true);
             ConfirmarP.setVisible(true);
 
@@ -342,8 +343,9 @@ public class Player1 extends javax.swing.JFrame {
 
     
     private void ConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConfirmarMouseClicked
-        
+  
         // In the confirmation button code:
+
         confirmedRectangles.add(new ArrayList<>(currentRectangle));
         for (Point p : currentRectangle) {
             clearLabels(labels, p.x, p.y);
@@ -403,7 +405,151 @@ public class Player1 extends javax.swing.JFrame {
     //...
     }
    
-int drawnRectanglesCount = 0;
+/*int drawnRectanglesCount = 0;
+int rectanglesDrawn = 0;
+JLayeredPane Orden = new JLayeredPane();
+int[] rectangleSizes = {2, 2, 3, 4};
+int currentX = -1;
+int currentY = -1;
+JLabel[][] labels = new JLabel[10][10];
+List<List<Point>> confirmedRectangles = new ArrayList<>();
+List<Point> currentRectangle = new ArrayList<>();
+boolean[][] celdasRojas1 = new boolean[10][10];
+
+public void GuardarPosicionesBarcos(JPanel panel) {
+    panel.setLayout(new GridLayout(9, 9));
+    JLabel[][] labels = new JLabel[10][10];
+    for (int i = 1; i <= 9; i++) {
+        for (int j = 1; j <= 9; j++) {
+            final int x = j;
+            final int y = i;
+            labels[j][i] = new JLabel();
+            labels[j][i].setPreferredSize(new Dimension(45, 45));
+            labels[j][i].setBorder(BorderFactory.createLineBorder(Color.WHITE));          
+            labels[j][i].addMouseListener(new MouseAdapter() {
+                boolean isVertical = false;
+int direction = 0; // Agregamos una variable para rastrear la dirección del rectángulo
+
+@Override
+public void mouseClicked(MouseEvent e) {
+    if (rectanglesDrawn >= rectangleSizes.length) return;
+    System.out.println("Label presionado en la posición: (" + x + ", " + y + ")");
+    
+    int size = rectangleSizes[rectanglesDrawn];
+    
+    for (Point p : currentRectangle) {
+        clearLabels(labels, p.x, p.y);
+    }
+    currentRectangle.clear();
+    
+    
+    // Check if the new position is already occupied by a confirmed rectangle
+    Confirmar.setVisible(true); 
+    ConfirmarP.setVisible(true);
+    boolean canDraw = false;
+    for (int d = 0; d < 4; d++) { // Verificamos si el rectángulo se puede dibujar en cada una de las cuatro direcciones
+        direction = (direction + 1) % 4; // Cambiamos la dirección cada vez que se verifica una nueva dirección
+        canDraw = true;
+        if (direction == 0 || direction == 2) { // Verificamos si la dirección es hacia la derecha o hacia la izquierda
+            for (int i = 0; i < size; i++) {
+                int newX = x + i;
+                if (direction == 2) newX = x - i; // Si la dirección es hacia la izquierda, restamos en lugar de sumar
+                if (newX > 9 || newX < 1) { // Si el nuevo valor de X está fuera de los límites, no dibujamos el rectángulo
+                  
+                    canDraw = false;
+                    break;
+                }
+                for (List<Point> confirmedRectangle : confirmedRectangles) {
+                    for (Point p : confirmedRectangle) {
+                        if (p.x == newX && p.y == y) {
+                            canDraw = false;
+                            break;
+                        }
+                    }
+                    if (!canDraw) break;
+                }
+            }
+        } else { // La dirección es hacia arriba o hacia abajo
+            for (int i = 0; i < size; i++) {
+                int newY = y + i;
+                if (direction == 3) newY = y - i; // Si la dirección es hacia arriba, restamos en lugar de sumar
+                if (newY > 9 || newY < 1) { // Si el nuevo valor de Y está fuera de los límites, no dibujamos el rectángulo
+                    canDraw = false;
+                    break;
+                }
+                for (List<Point> confirmedRectangle : confirmedRectangles) {
+                    for (Point p : confirmedRectangle) {
+                        if (p.x == x && p.y == newY) {
+                            canDraw = false;
+                            break;
+                        }
+                    }
+                    if (!canDraw) break;
+                }
+            }
+        }
+        if (canDraw) break; // Si encontramos una dirección en la que el rectángulo se puede dibujar, salimos del bucle
+    }
+    if (canDraw) {
+        if (direction == 0 || direction == 2) { // Dibujamos el rectángulo hacia la derecha o hacia la izquierda
+            for (int i = 0; i < size; i++) {
+                int newX = x + i;
+                if (direction == 2) newX = x - i; // Si la dirección es hacia la izquierda, restamos en lugar de sumar
+                if (newX > 9 || newX < 1) continue; // Si el nuevo valor de X está fuera de los límites, no dibujamos esa celda
+                if (labels[newX][y] != null) {
+                    labels[newX][y].setOpaque(true);
+                    labels[newX][y].setBackground(Color.RED);
+                    celdasRojas1[newX][y] = true; 
+                    
+                    currentRectangle.add(new Point(newX, y));
+                }
+            }
+        } else { // Dibujamos el rectángulo hacia arriba o hacia abajo
+            for (int i = 0; i < size; i++) {
+                int newY = y + i;
+                if (direction == 3) newY = y - i; // Si la dirección es hacia arriba, restamos en lugar de sumar
+                if (newY > 9 || newY < 1) continue; // Si el nuevo valor de Y está fuera de los límites, no dibujamos esa celda
+                if (labels[x][newY] != null) {
+                    labels[x][newY].setOpaque(true);
+                    labels[x][newY].setBackground(Color.RED);
+                    celdasRojas1[x][newY] = true; 
+                    currentRectangle.add(new Point(x, newY));
+                }
+            }
+        }
+        redcells1 = new boolean[10][10];
+        for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            redcells1[i][j] = celdasRojas1[i][j];
+        }
+    }
+    }
+    
+    currentX = x;
+    currentY = y;
+    
+    
+}
+            });
+            panel.add(labels[j][i]); 
+            
+        }
+    }
+}
+
+public static boolean[][] redcells1;
+
+
+
+public void clearLabels(JLabel[][] labels, int x, int y) {
+    if (x >= 1 && x <= 9 && y >= 1 && y <= 9 && labels[x][y] != null) {
+        labels[x][y].setOpaque(false);
+        labels[x][y].setBackground(null);
+        celdasRojas1[x][y] = false; 
+    }
+}*/
+    
+    int drawnRectanglesCount = 0;
 int rectanglesDrawn = 0;
 JLayeredPane Orden = new JLayeredPane();
 int[] rectangleSizes = {2, 2, 3, 4};
@@ -546,6 +692,7 @@ public void clearLabels(JLabel[][] labels, int x, int y) {
         celdasRojas1[x][y] = false; 
     }
 }
+   
 
 private Timer timer;
 /*
@@ -606,9 +753,9 @@ public void AgregarPosicionesBarcos(JPanel panel, JTextField CoordenadasP1) {
 }
 */
 
-private boolean[][] enteredCoordinates = new boolean[10][10];
 
-public void AgregarPosicionesBarcos(JPanel panel, JTextField CoordenadasP1) {
+
+public void coordenadas_de_Ataque_y_vida(JPanel panel, JTextField CoordenadasP1) {
     panel.setLayout(new GridLayout(9, 9));
     JLabel[][] labels = new JLabel[10][10];
     for (int i = 1; i <= 9; i++) {
@@ -625,6 +772,20 @@ public void AgregarPosicionesBarcos(JPanel panel, JTextField CoordenadasP1) {
         }
     }
 
+    for (int i = 1; i <= 9; i++) {
+        for (int j = 1; j <= 9; j++) {
+            if (estadoJuego[j][i] != null) {
+                if (estadoJuego[j][i]) {
+                    labels[j][i].setText("O");
+                    labels[j][i].setForeground(Color.RED);
+                } else {
+                    labels[j][i].setText("X");
+                    labels[j][i].setForeground(Color.WHITE);
+                }
+            }
+        }
+    }
+
     CoordenadasP1.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -632,24 +793,19 @@ public void AgregarPosicionesBarcos(JPanel panel, JTextField CoordenadasP1) {
             if (text.length() == 3 && text.charAt(1) == ',') {
                 int y = text.toUpperCase().charAt(0) - 'A' + 1;
                 int x = Character.getNumericValue(text.charAt(2));
-                if (x >= 1 && x <= 9 && y >= 1 && y <= 9) {
-                    if (enteredCoordinates[x][y]) {
-                        System.out.println("Coordinates already entered!");
-                        return;
-                    }
-                    
+                if (x >= 1 && x <= 9 && y >= 1 && y <= 9 && labels[x][y].getText().isEmpty()) {
                     System.out.println("Label presionado en la posición: (" + x + ", " + y + ")");
-                    enteredCoordinates[x][y] = true;
-                    
                     if (celdasR2[x][y]) {
                         labels[x][y].setText("O");
                         labels[x][y].setForeground(Color.RED);
+                        estadoJuego[x][y] = true;
                     } else {
                         labels[x][y].setText("X");
                         labels[x][y].setForeground(Color.WHITE);
+                        estadoJuego[x][y] = false;
                     }
-                    
-                    Timer timer = new Timer(2000, new ActionListener() {
+
+                    Timer timer = new Timer(1000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             esperar.esperar();

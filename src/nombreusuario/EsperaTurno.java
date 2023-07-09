@@ -19,7 +19,7 @@ public class EsperaTurno extends javax.swing.JFrame {
 
     public EsperaTurno() {
         initComponents();
-        int delay = 6000; // Tiempo de espera en milisegundos (6 segundos)
+        int delay = 3000; // Tiempo de espera en milisegundos (6 segundos)
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (showPlayer2) {
