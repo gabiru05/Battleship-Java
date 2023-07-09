@@ -17,7 +17,13 @@ Battleship game implemented in Java
 
 <img src="https://github.com/gabiru05/Gaby_Resource/blob/master/images/Gifs/1pxRainbowLine.gif" width= "300000" alt="horizontal super thin rainbow RGB line">
 
-#### <img src="https://github.com/gabiru05/Gaby_Resource/blob/master/images/Gifs/accepted.gif" width= "30" alt="Green icon denoting validation"> Para uso Publico o Personal
+#### <img src="https://github.com/gabiru05/Gaby_Resource/blob/master/images/Gifs/yellow%20arrow%20to%20the%20right.gif" width= "30" alt="Yellow icon denoting alert"> Para uso Publico con fines educativos o Personal
+
+#### <img src="https://github.com/gabiru05/Gaby_Resource/blob/master/images/Gifs/level%20up.gif" width= "30" alt="Blue icon denoting level Up!">+Optimizaciones
+
+#### <img src="https://github.com/gabiru05/Gaby_Resource/blob/master/images/Gifs/level%20up.gif" width= "30" alt="Blue icon denoting level Up!">+Restructaracion de las funciones del sonido
+
+#### <img src="https://github.com/gabiru05/Gaby_Resource/blob/master/images/Gifs/level%20up.gif" width= "30" alt="Blue icon denoting level Up!">+legibilidad del código
 
 <img src="https://github.com/gabiru05/Gaby_Resource/blob/master/images/Gifs/1pxRainbowLine.gif" width= "300000" alt="horizontal super thin rainbow RGB line">
 
