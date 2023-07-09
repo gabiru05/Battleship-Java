@@ -6,10 +6,13 @@ package nombreusuario;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -19,40 +22,46 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import static nombreusuario.Player1.redcells;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 
-/**
- *
- * @author kenet
- */
 public class Player2 extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Player2
-     */
-    boolean[][] celdasR = new boolean[10][10];
+   
+    private EsperaTurno esperar = new EsperaTurno();
+    boolean[][] celdasR1 = new boolean[10][10];
+    static boolean BarcosGuardados = false;
+    static boolean ejecutado = false;
     public Player2() {
         initComponents();
-        agregarBotones(cuadroBarcos2);
-        for (int i = 1; i <= 9; i++) {
-        for (int j = 1; j <= 9; j++) {
-            celdasR[j][i] = Player1.redcells[j][i];
-        }
-    }
-        
-        for (int i = 1; i <= 9; i++) {
-        for (int j = 1; j <= 9; j++) {
-            if (celdasR[j][i]) {
-                System.out.print("R ");
-            } else {
-                System.out.print("- ");
+
+        if (!BarcosGuardados) {
+            GuardarPosicionesBarcos(cuadroBarcos2);
+            CoordenadasP2.setVisible(false);
+            MensajeCoordenadasP2.setVisible(false);
+            BarcosGuardados = true; // Marcamos las posiciones de los barcos como ya guardadas
+        } else {
+            AgregarPosicionesBarcos(cuadroBarcos2, CoordenadasP2);
+            Confirmar.setVisible(true);
+            ConfirmarP.setVisible(true);
+
+            if (!ejecutado) { // Verifica si PosicionBarcos ya se ha ejecutado
+                for (int i = 1; i <= 9; i++) {
+                    for (int j = 1; j <= 9; j++) {
+                        celdasR1[j][i] = Player1.redcells1[j][i];
+                    }
+                }
+                ejecutado = true; // Marca PosicionBarcos como ejecutado
             }
         }
-        System.out.println();
+
+        Confirmar.setVisible(false);
+        ConfirmarP.setVisible(false);
     }
-        
-         
+    
+    public void hideFrame() {
+        this.setVisible(false);
     }
 
     /**
@@ -65,7 +74,7 @@ public class Player2 extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        Juego2 = new javax.swing.JPanel();
         cuadroBarcos2 = new FondoPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -85,6 +94,12 @@ public class Player2 extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        Capitan2 = new javax.swing.JLabel();
+        MensajeCoordenadasP2 = new javax.swing.JLabel();
+        CoordenadasP2 = new javax.swing.JTextField();
+        ConfirmarP = new javax.swing.JPanel();
+        Confirmar = new javax.swing.JLabel();
+        Mensaje_Error = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -94,8 +109,8 @@ public class Player2 extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setResizable(false);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Juego2.setBackground(new java.awt.Color(255, 255, 255));
+        Juego2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         javax.swing.GroupLayout cuadroBarcos2Layout = new javax.swing.GroupLayout(cuadroBarcos2);
         cuadroBarcos2.setLayout(cuadroBarcos2Layout);
@@ -108,112 +123,223 @@ public class Player2 extends javax.swing.JFrame {
             .addGap(0, 405, Short.MAX_VALUE)
         );
 
-        jPanel2.add(cuadroBarcos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 405, 405));
+        Juego2.add(cuadroBarcos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 405, 405));
 
         jLabel1.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("8");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 30, 45, 45));
+        Juego2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 30, 45, 45));
 
         jLabel3.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("A");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 45, 45));
+        jLabel3.setText("I");
+        Juego2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 45, 45));
 
         jLabel4.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("2");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 30, 45, 45));
+        Juego2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 30, 45, 45));
 
         jLabel5.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("4");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 30, 45, 45));
+        Juego2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 30, 45, 45));
 
         jLabel6.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("3");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 45, 45));
+        Juego2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 45, 45));
 
         jLabel7.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("5");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 45, 45));
+        Juego2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 45, 45));
 
         jLabel8.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("6");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 30, 45, 45));
+        Juego2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 30, 45, 45));
 
         jLabel9.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("7");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 45, 45));
+        Juego2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 45, 45));
 
         jLabel10.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("9");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 45, 45));
+        Juego2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 45, 45));
 
         jLabel11.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("1");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 45, 45));
+        Juego2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 45, 45));
 
         jLabel12.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("A");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 45, 45));
+        Juego2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 45, 45));
 
         jLabel13.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("A");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 205, 45, 45));
+        jLabel13.setText("D");
+        Juego2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 205, 45, 45));
 
         jLabel14.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("A");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 45, 45));
+        jLabel14.setText("C");
+        Juego2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 45, 45));
 
         jLabel15.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("A");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 45, 45));
+        jLabel15.setText("E");
+        Juego2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 45, 45));
 
         jLabel16.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("A");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 115, 45, 45));
+        jLabel16.setText("B");
+        Juego2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 115, 45, 45));
 
         jLabel17.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("A");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 295, 45, 45));
+        jLabel17.setText("F");
+        Juego2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 295, 45, 45));
 
         jLabel18.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("A");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 385, 45, 45));
+        jLabel18.setText("H");
+        Juego2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 385, 45, 45));
 
         jLabel19.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("A");
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 45, 45));
+        jLabel19.setText("G");
+        Juego2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 45, 45));
+
+        Capitan2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/Capitan2.png"))); // NOI18N
+        Capitan2.setText("jLabel20");
+        Juego2.add(Capitan2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 160, 200));
+
+        MensajeCoordenadasP2.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        MensajeCoordenadasP2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        MensajeCoordenadasP2.setText("Ingrese coordenadas de ataque");
+        Juego2.add(MensajeCoordenadasP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 220, 20));
+
+        CoordenadasP2.setForeground(new java.awt.Color(153, 153, 153));
+        CoordenadasP2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        CoordenadasP2.setText("A,1");
+        CoordenadasP2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CoordenadasP2MouseClicked(evt);
+            }
+        });
+        Juego2.add(CoordenadasP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 300, 60, 30));
+
+        ConfirmarP.setBackground(new java.awt.Color(0, 0, 0));
+
+        Confirmar.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
+        Confirmar.setForeground(new java.awt.Color(255, 255, 255));
+        Confirmar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Confirmar.setText("CONFIRMAR");
+        Confirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Confirmar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ConfirmarMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ConfirmarPLayout = new javax.swing.GroupLayout(ConfirmarP);
+        ConfirmarP.setLayout(ConfirmarPLayout);
+        ConfirmarPLayout.setHorizontalGroup(
+            ConfirmarPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConfirmarPLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        ConfirmarPLayout.setVerticalGroup(
+            ConfirmarPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConfirmarPLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        Juego2.add(ConfirmarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 430, 100, 40));
+
+        Mensaje_Error.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        Mensaje_Error.setForeground(new java.awt.Color(255, 0, 0));
+        Mensaje_Error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Juego2.add(Mensaje_Error, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 160, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(Juego2, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(Juego2, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CoordenadasP2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoordenadasP2MouseClicked
+        
+            if (CoordenadasP2.getText().equals("A,1")){
+                CoordenadasP2.setFocusable(true);
+                CoordenadasP2.requestFocusInWindow();
+                CoordenadasP2.setText("");
+                CoordenadasP2.setForeground(Color.black);
+            }   
+    }//GEN-LAST:event_CoordenadasP2MouseClicked
+
+    int saltar_turno = 0;
+    private void ConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConfirmarMouseClicked
+        // In the confirmation button code:
+        confirmedRectangles.add(new ArrayList<>(currentRectangle));
+        for (Point p : currentRectangle) {
+            clearLabels(labels, p.x, p.y);
+        }
+        currentRectangle.clear();
+        for (List<Point> rectangle : confirmedRectangles) {
+            for (Point p : rectangle) {
+                if (labels[p.x][p.y] != null) {
+                    labels[p.x][p.y].setOpaque(true);
+                    labels[p.x][p.y].setBackground(Color.RED);
+                }
+            }
+        }
+        // Make the confirm button disappear
+        Confirmar.setVisible(false);
+        ConfirmarP.setVisible(false);
+
+        // Check if there are any empty spaces in the matrix
+        for (int i = 0; i < labels.length; i++) {
+            for (int j = 0; j < labels[i].length; j++) {
+                if (labels[i][j] != null && labels[i][j].getBackground() == Color.red) {
+                    // El botón Confirmar debería reaparecer si hay un espacio vacío en la matriz
+                    Confirmar.setVisible(true);
+                    ConfirmarP.setVisible(true);
+                    break;
+                }
+
+            }
+        }
+
+        saltar_turno++;
+        rectanglesDrawn++;
+
+        if (saltar_turno == 4){
+            CoordenadasP2.setVisible(true);
+            MensajeCoordenadasP2.setVisible(true);
+            Confirmar.setVisible(false);
+            ConfirmarP.setVisible(false);
+            esperar.esperar();
+            esperar.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_ConfirmarMouseClicked
 
     public class FondoPanel extends JPanel {
     private Image imagen;
@@ -228,8 +354,11 @@ public class Player2 extends javax.swing.JFrame {
         }
     //...
     }
+
     
- int drawnRectanglesCount = 0;
+boolean dato_ingresado = false;
+
+int drawnRectanglesCount = 0;
 int rectanglesDrawn = 0;
 JLayeredPane Orden = new JLayeredPane();
 int[] rectangleSizes = {2, 2, 3, 4};
@@ -238,9 +367,9 @@ int currentY = -1;
 JLabel[][] labels = new JLabel[10][10];
 List<List<Point>> confirmedRectangles = new ArrayList<>();
 List<Point> currentRectangle = new ArrayList<>();
-boolean[][] celdasRojas = new boolean[10][10];
+boolean[][] celdasRojas2 = new boolean[10][10];
 
-public void agregarBotones(JPanel panel) {
+public void GuardarPosicionesBarcos(JPanel panel) {
     panel.setLayout(new GridLayout(9, 9));
     JLabel[][] labels = new JLabel[10][10];
     for (int i = 1; i <= 9; i++) {
@@ -252,29 +381,257 @@ public void agregarBotones(JPanel panel) {
             labels[j][i].setBorder(BorderFactory.createLineBorder(Color.WHITE));          
             labels[j][i].addMouseListener(new MouseAdapter() {
                 boolean isVertical = false;
-                int direction = 0;
+int direction = 0; // Agregamos una variable para rastrear la dirección del rectángulo
 
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    if (rectanglesDrawn >= rectangleSizes.length) return;
-                    System.out.println("Label presionado en la posición: (" + x + ", " + y + ")"); 
-                    
-                    if (celdasR[x][y]) {
-                        labels[x][y].setOpaque(true);
-                        labels[x][y].setBackground(Color.GREEN);
-                    } else {
-                        labels[x][y].setOpaque(true);
-                        labels[x][y].setBackground(Color.BLACK);
-                    }
+@Override
+public void mouseClicked(MouseEvent e) {
+    if (rectanglesDrawn >= rectangleSizes.length) return;
+    System.out.println("Label presionado en la posición: (" + x + ", " + y + ")");
+    
+    int size = rectangleSizes[rectanglesDrawn];
+    
+    for (Point p : currentRectangle) {
+        clearLabels(labels, p.x, p.y);
+    }
+    currentRectangle.clear();
+    
+    
+    // Check if the new position is already occupied by a confirmed rectangle
+    Confirmar.setVisible(true); 
+    ConfirmarP.setVisible(true);
+    boolean canDraw = false;
+    for (int d = 0; d < 4; d++) { // Verificamos si el rectángulo se puede dibujar en cada una de las cuatro direcciones
+        direction = (direction + 1) % 4; // Cambiamos la dirección cada vez que se verifica una nueva dirección
+        canDraw = true;
+        if (direction == 0 || direction == 2) { // Verificamos si la dirección es hacia la derecha o hacia la izquierda
+            for (int i = 0; i < size; i++) {
+                int newX = x + i;
+                if (direction == 2) newX = x - i; // Si la dirección es hacia la izquierda, restamos en lugar de sumar
+                if (newX > 9 || newX < 1) { // Si el nuevo valor de X está fuera de los límites, no dibujamos el rectángulo
+                  
+                    canDraw = false;
+                    break;
                 }
+                for (List<Point> confirmedRectangle : confirmedRectangles) {
+                    for (Point p : confirmedRectangle) {
+                        if (p.x == newX && p.y == y) {
+                            canDraw = false;
+                            break;
+                        }
+                    }
+                    if (!canDraw) break;
+                }
+            }
+        } else { // La dirección es hacia arriba o hacia abajo
+            for (int i = 0; i < size; i++) {
+                int newY = y + i;
+                if (direction == 3) newY = y - i; // Si la dirección es hacia arriba, restamos en lugar de sumar
+                if (newY > 9 || newY < 1) { // Si el nuevo valor de Y está fuera de los límites, no dibujamos el rectángulo
+                    canDraw = false;
+                    break;
+                }
+                for (List<Point> confirmedRectangle : confirmedRectangles) {
+                    for (Point p : confirmedRectangle) {
+                        if (p.x == x && p.y == newY) {
+                            canDraw = false;
+                            break;
+                        }
+                    }
+                    if (!canDraw) break;
+                }
+            }
+        }
+        if (canDraw) break; // Si encontramos una dirección en la que el rectángulo se puede dibujar, salimos del bucle
+    }
+    if (canDraw) {
+        if (direction == 0 || direction == 2) { // Dibujamos el rectángulo hacia la derecha o hacia la izquierda
+            for (int i = 0; i < size; i++) {
+                int newX = x + i;
+                if (direction == 2) newX = x - i; // Si la dirección es hacia la izquierda, restamos en lugar de sumar
+                if (newX > 9 || newX < 1) continue; // Si el nuevo valor de X está fuera de los límites, no dibujamos esa celda
+                if (labels[newX][y] != null) {
+                    labels[newX][y].setOpaque(true);
+                    labels[newX][y].setBackground(Color.RED);
+                    celdasRojas2[newX][y] = true; 
+                    
+                    currentRectangle.add(new Point(newX, y));
+                }
+            }
+        } else { // Dibujamos el rectángulo hacia arriba o hacia abajo
+            for (int i = 0; i < size; i++) {
+                int newY = y + i;
+                if (direction == 3) newY = y - i; // Si la dirección es hacia arriba, restamos en lugar de sumar
+                if (newY > 9 || newY < 1) continue; // Si el nuevo valor de Y está fuera de los límites, no dibujamos esa celda
+                if (labels[x][newY] != null) {
+                    labels[x][newY].setOpaque(true);
+                    labels[x][newY].setBackground(Color.RED);
+                    celdasRojas2[x][newY] = true; 
+                    currentRectangle.add(new Point(x, newY));
+                }
+            }
+        }
+        redcells2 = new boolean[10][10];
+        for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            redcells2[i][j] = celdasRojas2[i][j];
+        }
+    }
+    }
+    
+    currentX = x;
+    currentY = y;
+    
+    
+}
             });
             panel.add(labels[j][i]); 
+            
         }
     }
 }
 
+public static boolean[][] redcells2;
 
+
+
+public void clearLabels(JLabel[][] labels, int x, int y) {
+    if (x >= 1 && x <= 9 && y >= 1 && y <= 9 && labels[x][y] != null) {
+        labels[x][y].setOpaque(false);
+        labels[x][y].setBackground(null);
+        celdasRojas2[x][y] = false; 
+    }
+}
+
+/*public void AgregarPosicionesBarcos(JPanel panel, JTextField CoordenadasP1) {
+    panel.setLayout(new GridLayout(9, 9));
+    JLabel[][] labels = new JLabel[10][10];
+    for (int i = 1; i <= 9; i++) {
+    for (int j = 1; j <= 9; j++) {
+        final int x = j;
+        final int y = i;
+        labels[j][i] = new JLabel();
+        labels[j][i].setPreferredSize(new Dimension(45, 45));
+        labels[j][i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        labels[j][i].setHorizontalAlignment(SwingConstants.CENTER);
+        labels[j][i].setVerticalAlignment(SwingConstants.CENTER);
+        labels[j][i].setFont(new Font("Roboto Black", Font.BOLD, 36));
+        panel.add(labels[j][i]);
+    }
+}
+
+    CoordenadasP1.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String text = CoordenadasP1.getText();
+        if (text.length() == 3 && text.charAt(1) == ',') {
+            int y = text.toUpperCase().charAt(0) - 'A' + 1;
+            int x = Character.getNumericValue(text.charAt(2));
+            if (x >= 1 && x <= 9 && y >= 1 && y <= 9) {
+                System.out.println("Label presionado en la posición: (" + x + ", " + y + ")");
+                if (celdasR1[x][y]) {
+                    labels[x][y].setText("O");
+                    labels[x][y].setForeground(Color.RED);
+                } else {
+                    labels[x][y].setText("X");
+                    labels[x][y].setForeground(Color.WHITE);
+                }
+                
+                Timer timer = new Timer(1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    esperar.esperar();
+                    hideFrame();
+                    esperar.setVisible(true);
+                    
+                }
+                });
+                timer.setRepeats(false);
+                timer.start();
+            }
+            else{     
+            Mensaje_Error.setText("Datos incorrectos!!");
+            Mensaje_Error.setVisible(true);
+            
+            }
+        }
+        
+    }
+});
     
+
+}*/
+
+Boolean[][] estadoJuego = new Boolean[10][10];
+
+public void AgregarPosicionesBarcos(JPanel panel, JTextField CoordenadasP1) {
+    panel.setLayout(new GridLayout(9, 9));
+    JLabel[][] labels = new JLabel[10][10];
+    for (int i = 1; i <= 9; i++) {
+        for (int j = 1; j <= 9; j++) {
+            final int x = j;
+            final int y = i;
+            labels[j][i] = new JLabel();
+            labels[j][i].setPreferredSize(new Dimension(45, 45));
+            labels[j][i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+            labels[j][i].setHorizontalAlignment(SwingConstants.CENTER);
+            labels[j][i].setVerticalAlignment(SwingConstants.CENTER);
+            labels[j][i].setFont(new Font("Roboto Black", Font.BOLD, 36));
+            panel.add(labels[j][i]);
+        }
+    }
+
+    for (int i = 1; i <= 9; i++) {
+        for (int j = 1; j <= 9; j++) {
+            if (estadoJuego[j][i] != null) {
+                if (estadoJuego[j][i]) {
+                    labels[j][i].setText("O");
+                    labels[j][i].setForeground(Color.RED);
+                } else {
+                    labels[j][i].setText("X");
+                    labels[j][i].setForeground(Color.WHITE);
+                }
+            }
+        }
+    }
+
+    CoordenadasP1.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String text = CoordenadasP1.getText();
+            if (text.length() == 3 && text.charAt(1) == ',') {
+                int y = text.toUpperCase().charAt(0) - 'A' + 1;
+                int x = Character.getNumericValue(text.charAt(2));
+                if (x >= 1 && x <= 9 && y >= 1 && y <= 9 && labels[x][y].getText().isEmpty()) {
+                    System.out.println("Label presionado en la posición: (" + x + ", " + y + ")");
+                    if (celdasR1[x][y]) {
+                        labels[x][y].setText("O");
+                        labels[x][y].setForeground(Color.RED);
+                        estadoJuego[x][y] = true;
+                    } else {
+                        labels[x][y].setText("X");
+                        labels[x][y].setForeground(Color.WHITE);
+                        estadoJuego[x][y] = false;
+                    }
+
+                    Timer timer = new Timer(2000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            esperar.esperar();
+                            hideFrame();
+                            esperar.setVisible(true);
+                        }
+                    });
+                    timer.setRepeats(false);
+                    timer.start();
+                } else {
+                    Mensaje_Error.setText("Datos incorrectos!!");
+                    Mensaje_Error.setVisible(true);
+                }
+            }
+        }
+    });
+}
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -310,6 +667,13 @@ public void agregarBotones(JPanel panel) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Capitan2;
+    private javax.swing.JLabel Confirmar;
+    private javax.swing.JPanel ConfirmarP;
+    private javax.swing.JTextField CoordenadasP2;
+    private javax.swing.JPanel Juego2;
+    private javax.swing.JLabel MensajeCoordenadasP2;
+    private javax.swing.JLabel Mensaje_Error;
     private javax.swing.JPanel cuadroBarcos2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -330,6 +694,5 @@ public void agregarBotones(JPanel panel) {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

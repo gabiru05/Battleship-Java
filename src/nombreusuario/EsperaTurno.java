@@ -6,6 +6,7 @@ package nombreusuario;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
@@ -13,23 +14,31 @@ import javax.swing.Timer;
  * @author kenet
  */
 public class EsperaTurno extends javax.swing.JFrame {
+    private static boolean showPlayer2 = true;
+    private Timer timer;
 
-    /**
-     * Creates new form EsperaTurno
-     */
     public EsperaTurno() {
         initComponents();
-       int delay = 6000; // Tiempo de espera en milisegundos (6 segundos)
+        int delay = 6000; // Tiempo de espera en milisegundos (6 segundos)
         ActionListener taskPerformer = new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-            Player2 player2 = new Player2();
-            player2.setVisible(true);
-            setVisible(false);
-        }
-    };
-    Timer timer = new Timer(delay, taskPerformer);
-    timer.setRepeats(false);
-    timer.start();
+            public void actionPerformed(ActionEvent evt) {
+                if (showPlayer2) {
+                    Player2 player2 = new Player2();
+                    player2.setVisible(true);
+                } else {
+                    Player1 player1 = new Player1();
+                    player1.setVisible(true);
+                }
+                showPlayer2 = !showPlayer2;
+                setVisible(false);
+            }
+        };
+        timer = new Timer(delay, taskPerformer);
+        timer.setRepeats(false);
+    }
+
+    public void esperar() {
+        timer.start();
     }
 
     @SuppressWarnings("unchecked")

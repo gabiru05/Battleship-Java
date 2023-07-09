@@ -13,6 +13,7 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -29,6 +30,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -41,6 +44,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 
 
@@ -51,21 +57,43 @@ import javax.swing.table.TableColumnModel;
 public class Player1 extends javax.swing.JFrame {
     
 
-    /**
-     * Creates new form Player1
-     */
-    int xMouse, 
-
-    /**
-     * Creates new form Player1
-     */
-    yMouse;
+   
+    boolean[][] celdasR2 = new boolean[10][10];
+    private EsperaTurno esperar = new EsperaTurno();;
+    static boolean BarcosGuardados = false;
+    static boolean ejecutado = false;
     public Player1() {
+
+        
         initComponents();
         
-        agregarBotones(CuadroBarcos);
-        Coordenadas.setVisible(false);
-        MensajeCoordenadas.setVisible(false);
+        if (!BarcosGuardados) {
+            GuardarPosicionesBarcos(CuadroBarcos);
+            CoordenadasP1.setVisible(false);
+            MensajeCoordenadasP1.setVisible(false);
+            BarcosGuardados = true; // Marcamos las posiciones de los barcos como ya guardadas
+        } else {
+            AgregarPosicionesBarcos(CuadroBarcos, CoordenadasP1);
+            Confirmar.setVisible(true);
+            ConfirmarP.setVisible(true);
+
+            if (!ejecutado) { // Verifica si PosicionBarcos ya se ha ejecutado
+                for (int i = 1; i <= 9; i++) {
+                    for (int j = 1; j <= 9; j++) {
+                        celdasR2[j][i] = Player2.redcells2[j][i];
+                    }
+                }
+                ejecutado = true; // Marca PosicionBarcos como ejecutado
+            }
+        }
+
+        Confirmar.setVisible(false);
+        ConfirmarP.setVisible(false);
+       
+    }
+    
+    public void hideFrame() {
+        this.setVisible(false);
     }
 
     /**
@@ -100,10 +128,9 @@ public class Player1 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         ConfirmarP = new javax.swing.JPanel();
         Confirmar = new javax.swing.JLabel();
-        Music_boton = new javax.swing.JToggleButton();
-        Music_icono = new javax.swing.JLabel();
-        MensajeCoordenadas = new javax.swing.JLabel();
-        Coordenadas = new javax.swing.JTextField();
+        MensajeCoordenadasP1 = new javax.swing.JLabel();
+        CoordenadasP1 = new javax.swing.JTextField();
+        Mensaje_Error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -237,7 +264,9 @@ public class Player1 extends javax.swing.JFrame {
         ConfirmarP.setLayout(ConfirmarPLayout);
         ConfirmarPLayout.setHorizontalGroup(
             ConfirmarPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Confirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConfirmarPLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         ConfirmarPLayout.setVerticalGroup(
             ConfirmarPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,42 +277,38 @@ public class Player1 extends javax.swing.JFrame {
 
         Juego.add(ConfirmarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 430, 100, 40));
 
-        Music_boton.setText("Music");
-        Music_boton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Music_botonActionPerformed(evt);
-            }
-        });
-        Juego.add(Music_boton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, -1, -1));
-        Juego.add(Music_icono, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 60, 50));
+        MensajeCoordenadasP1.setBackground(new java.awt.Color(0, 0, 0));
+        MensajeCoordenadasP1.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        MensajeCoordenadasP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        MensajeCoordenadasP1.setText("Ingrese coordenadas de ataque");
+        Juego.add(MensajeCoordenadasP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 220, 20));
 
-        MensajeCoordenadas.setBackground(new java.awt.Color(0, 0, 0));
-        MensajeCoordenadas.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        MensajeCoordenadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        MensajeCoordenadas.setText("Ingrese coordenadas de ataque");
-        Juego.add(MensajeCoordenadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 220, 20));
-
-        Coordenadas.setForeground(new java.awt.Color(153, 153, 153));
-        Coordenadas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Coordenadas.setText("A,1");
-        Coordenadas.addMouseListener(new java.awt.event.MouseAdapter() {
+        CoordenadasP1.setForeground(new java.awt.Color(153, 153, 153));
+        CoordenadasP1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        CoordenadasP1.setText("A,1");
+        CoordenadasP1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CoordenadasMouseClicked(evt);
+                CoordenadasP1MouseClicked(evt);
             }
         });
-        Coordenadas.addActionListener(new java.awt.event.ActionListener() {
+        CoordenadasP1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CoordenadasActionPerformed(evt);
+                CoordenadasP1ActionPerformed(evt);
             }
         });
-        Juego.add(Coordenadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 300, 60, 30));
+        Juego.add(CoordenadasP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 300, 60, 30));
+
+        Mensaje_Error.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        Mensaje_Error.setForeground(new java.awt.Color(255, 0, 0));
+        Mensaje_Error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Juego.add(Mensaje_Error, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 160, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Juego, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                .addComponent(Juego, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -297,129 +322,74 @@ public class Player1 extends javax.swing.JFrame {
    
     
    
-    int aparecerTxtCoordenadas = 0;
-    private void ConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConfirmarMouseClicked
-                                       
-// In the confirmation button code:
-    confirmedRectangles.add(new ArrayList<>(currentRectangle));
-    for (Point p : currentRectangle) {
-        clearLabels(labels, p.x, p.y);
-    }
-    currentRectangle.clear();
-    for (List<Point> rectangle : confirmedRectangles) {
-        for (Point p : rectangle) {
-            if (labels[p.x][p.y] != null) {
-                labels[p.x][p.y].setOpaque(true);
-                labels[p.x][p.y].setBackground(Color.RED);
-            }
-        }
-    }
-    // Make the confirm button disappear
-    Confirmar.setVisible(false);
-    ConfirmarP.setVisible(false);
-
-    // Check if there are any empty spaces in the matrix
-    for (int i = 0; i < labels.length; i++) {
-        for (int j = 0; j < labels[i].length; j++) {
-            if (labels[i][j] != null && labels[i][j].getBackground() == Color.red) {
-    // El botón Confirmar debería reaparecer si hay un espacio vacío en la matriz
-    Confirmar.setVisible(true);
-    ConfirmarP.setVisible(true);
-    break;
-}
-
-        }
-    }
-
-    aparecerTxtCoordenadas++;
-    rectanglesDrawn++;
+    int saltar_turno = 0;    //Audio
     
-        if (aparecerTxtCoordenadas == 4){
-            Coordenadas.setVisible(true);
-            MensajeCoordenadas.setVisible(true);
-            //imprimirMatriz();
-            EsperaTurno hola = new EsperaTurno();
-            hola.setVisible(true);
-            this.setVisible(false);
-        }
-    }//GEN-LAST:event_ConfirmarMouseClicked
-    //Audio
-    private Clip Sound;
     
-    private void Music_botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Music_botonActionPerformed
-      if (Music_boton.isSelected()){
-          //this.setLocationRelativeTo(this);
-        SetMusic_icon(Music_icono, "/IMAGENES/music_off.png");
-        System.out.println("Icono of");
-        Music_icono.repaint();
-        
-        //Stop sound 
-        if (Sound != null) {
-            Sound.stop();
-        }
-        
-        }
-      else{
-           SetMusic_icon(Music_icono, "/IMAGENES/music_on.png");
-        System.out.println("Icono on");
-         Music_icono.repaint();
-         
-         //restart sound
-         Setsound();
-         
-         
-    
-        
-          
-      }
-    }//GEN-LAST:event_Music_botonActionPerformed
-
-    private void CoordenadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CoordenadasActionPerformed
+    private void CoordenadasP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CoordenadasP1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CoordenadasActionPerformed
+    }//GEN-LAST:event_CoordenadasP1ActionPerformed
 
-    private void CoordenadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoordenadasMouseClicked
+    private void CoordenadasP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoordenadasP1MouseClicked
         
-            if (Coordenadas.getText().equals("A,1")){
-                Coordenadas.setFocusable(true);
-                Coordenadas.requestFocusInWindow();
-                Coordenadas.setText("");
-                Coordenadas.setForeground(Color.black);
+            if (CoordenadasP1.getText().equals("A,1")){
+                CoordenadasP1.setFocusable(true);
+                CoordenadasP1.requestFocusInWindow();
+                CoordenadasP1.setText("");
+                CoordenadasP1.setForeground(Color.black);
             }   
         
-    }//GEN-LAST:event_CoordenadasMouseClicked
-public void Setsound(){
-try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/Sonidos/Outbreak.wav"));
-            Sound = AudioSystem.getClip();
-            Sound.open(audioInputStream);
-            Sound.start();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }}
-    public void SetMusic_icon (JLabel labelName, String root){
-    java.net.URL imgURL = getClass().getResource(root);
-    if (imgURL != null) {
-        ImageIcon image= new ImageIcon(imgURL);
-        Icon icon = new ImageIcon(image.getImage().getScaledInstance(labelName.getWidth(),labelName.getHeight() , Image.SCALE_SMOOTH));
-        labelName.setIcon(icon);
-        this.repaint();
-   
-    } else {
-        System.err.println("Erro archivo no encontrado: " + root);
-    }
-}
-public void cargar_Imag_Soun(){
-//cargar tambien Icono predeterminado de Musica
-        boolean first_time = true;
-        if (first_time){
-        SetMusic_icon(Music_icono, "/IMAGENES/music_on.png");
-        //Setsound();
-        first_time= false;
+    }//GEN-LAST:event_CoordenadasP1MouseClicked
+
+    
+    private void ConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConfirmarMouseClicked
+        
+        // In the confirmation button code:
+        confirmedRectangles.add(new ArrayList<>(currentRectangle));
+        for (Point p : currentRectangle) {
+            clearLabels(labels, p.x, p.y);
         }
-}
-     
-   public class FondoPanel extends JPanel {
+        currentRectangle.clear();
+        for (List<Point> rectangle : confirmedRectangles) {
+            for (Point p : rectangle) {
+                if (labels[p.x][p.y] != null) {
+                    labels[p.x][p.y].setOpaque(true);
+                    labels[p.x][p.y].setBackground(Color.RED);
+                }
+            }
+        }
+        // Make the confirm button disappear
+        Confirmar.setVisible(false);
+        ConfirmarP.setVisible(false);
+
+        // Check if there are any empty spaces in the matrix
+        for (int i = 0; i < labels.length; i++) {
+            for (int j = 0; j < labels[i].length; j++) {
+                if (labels[i][j] != null && labels[i][j].getBackground() == Color.red) {
+                    // El botón Confirmar debería reaparecer si hay un espacio vacío en la matriz
+                    Confirmar.setVisible(true);
+                    ConfirmarP.setVisible(true);
+                    break;
+                }
+
+            }
+        }
+
+        saltar_turno++;
+        rectanglesDrawn++;
+
+        if (saltar_turno == 4){
+            CoordenadasP1.setVisible(true);
+            MensajeCoordenadasP1.setVisible(true);
+            Confirmar.setVisible(false);
+            ConfirmarP.setVisible(false);
+            esperar.esperar();
+            esperar.setVisible(true);
+            this.setVisible(false);
+        }
+        
+    }//GEN-LAST:event_ConfirmarMouseClicked
+
+    public class FondoPanel extends JPanel {
     private Image imagen;
     //...
     @Override
@@ -433,142 +403,6 @@ public void cargar_Imag_Soun(){
     //...
     }
    
-/*int drawnRectanglesCount = 0;
-int rectanglesDrawn = 0;
-JLayeredPane Orden = new JLayeredPane();
-int[] rectangleSizes = {2, 2, 3, 4};
-int currentX = -1;
-int currentY = -1;
-JLabel[][] labels = new JLabel[10][10];
-List<List<Point>> confirmedRectangles = new ArrayList<>();
-List<Point> currentRectangle = new ArrayList<>();
-
-public void agregarBotones(JPanel panel) {
-    panel.setLayout(new GridLayout(9, 9));
-    JLabel[][] labels = new JLabel[10][10];
-    for (int i = 1; i <= 9; i++) {
-        for (int j = 1; j <= 9; j++) {
-            final int x = j;
-            final int y = i;
-            labels[j][i] = new JLabel();
-            labels[j][i].setPreferredSize(new Dimension(45, 45));
-            labels[j][i].setBorder(BorderFactory.createLineBorder(Color.WHITE));          
-            labels[j][i].addMouseListener(new MouseAdapter() {
-                boolean isVertical = false;
-int direction = 0; // Agregamos una variable para rastrear la dirección del rectángulo
-
-@Override
-public void mouseClicked(MouseEvent e) {
-    if (rectanglesDrawn >= rectangleSizes.length) return;
-    System.out.println("Label presionado en la posición: (" + x + ", " + y + ")");
-    
-    int size = rectangleSizes[rectanglesDrawn];
-    
-    for (Point p : currentRectangle) {
-        clearLabels(labels, p.x, p.y);
-    }
-    currentRectangle.clear();
-    
-    
-    // Check if the new position is already occupied by a confirmed rectangle
-    Confirmar.setVisible(true); 
-    ConfirmarP.setVisible(true);
-    boolean canDraw = false;
-    for (int d = 0; d < 4; d++) { // Verificamos si el rectángulo se puede dibujar en cada una de las cuatro direcciones
-        direction = (direction + 1) % 4; // Cambiamos la dirección cada vez que se verifica una nueva dirección
-        canDraw = true;
-        if (direction == 0 || direction == 2) { // Verificamos si la dirección es hacia la derecha o hacia la izquierda
-            for (int i = 0; i < size; i++) {
-                int newX = x + i;
-                if (direction == 2) newX = x - i; // Si la dirección es hacia la izquierda, restamos en lugar de sumar
-                if (newX > 9 || newX < 1) { // Si el nuevo valor de X está fuera de los límites, no dibujamos el rectángulo
-                  
-                    canDraw = false;
-                    break;
-                }
-                for (List<Point> confirmedRectangle : confirmedRectangles) {
-                    for (Point p : confirmedRectangle) {
-                        if (p.x == newX && p.y == y) {
-                            canDraw = false;
-                            break;
-                        }
-                    }
-                    if (!canDraw) break;
-                }
-            }
-        } else { // La dirección es hacia arriba o hacia abajo
-            for (int i = 0; i < size; i++) {
-                int newY = y + i;
-                if (direction == 3) newY = y - i; // Si la dirección es hacia arriba, restamos en lugar de sumar
-                if (newY > 9 || newY < 1) { // Si el nuevo valor de Y está fuera de los límites, no dibujamos el rectángulo
-                    canDraw = false;
-                    break;
-                }
-                for (List<Point> confirmedRectangle : confirmedRectangles) {
-                    for (Point p : confirmedRectangle) {
-                        if (p.x == x && p.y == newY) {
-                            canDraw = false;
-                            break;
-                        }
-                    }
-                    if (!canDraw) break;
-                }
-            }
-        }
-        if (canDraw) break; // Si encontramos una dirección en la que el rectángulo se puede dibujar, salimos del bucle
-    }
-    if (canDraw) {
-        if (direction == 0 || direction == 2) { // Dibujamos el rectángulo hacia la derecha o hacia la izquierda
-            for (int i = 0; i < size; i++) {
-                int newX = x + i;
-                if (direction == 2) newX = x - i; // Si la dirección es hacia la izquierda, restamos en lugar de sumar
-                if (newX > 9 || newX < 1) continue; // Si el nuevo valor de X está fuera de los límites, no dibujamos esa celda
-                if (labels[newX][y] != null) {
-                    labels[newX][y].setOpaque(true);
-                    labels[newX][y].setBackground(Color.RED);
-                    
-                    currentRectangle.add(new Point(newX, y));
-                }
-            }
-        } else { // Dibujamos el rectángulo hacia arriba o hacia abajo
-            for (int i = 0; i < size; i++) {
-                int newY = y + i;
-                if (direction == 3) newY = y - i; // Si la dirección es hacia arriba, restamos en lugar de sumar
-                if (newY > 9 || newY < 1) continue; // Si el nuevo valor de Y está fuera de los límites, no dibujamos esa celda
-                if (labels[x][newY] != null) {
-                    labels[x][newY].setOpaque(true);
-                    labels[x][newY].setBackground(Color.RED);
-                    
-                    currentRectangle.add(new Point(x, newY));
-                }
-            }
-        }
-    }
-    
-    currentX = x;
-    currentY = y;
-    
-    
-}
-            });
-            panel.add(labels[j][i]); 
-            
-        }
-    }
-     cargar_Imag_Soun();
-}
-
-
-
-public void clearLabels(JLabel[][] labels, int x, int y) {
-    if (x >= 1 && x <= 9 && y >= 1 && y <= 9 && labels[x][y] != null) {
-        labels[x][y].setOpaque(false);
-        labels[x][y].setBackground(null);
-    }
-}*/
-   
-   
-
 int drawnRectanglesCount = 0;
 int rectanglesDrawn = 0;
 JLayeredPane Orden = new JLayeredPane();
@@ -578,9 +412,9 @@ int currentY = -1;
 JLabel[][] labels = new JLabel[10][10];
 List<List<Point>> confirmedRectangles = new ArrayList<>();
 List<Point> currentRectangle = new ArrayList<>();
-boolean[][] celdasRojas = new boolean[10][10];
+boolean[][] celdasRojas1 = new boolean[10][10];
 
-public void agregarBotones(JPanel panel) {
+public void GuardarPosicionesBarcos(JPanel panel) {
     panel.setLayout(new GridLayout(9, 9));
     JLabel[][] labels = new JLabel[10][10];
     for (int i = 1; i <= 9; i++) {
@@ -663,7 +497,7 @@ public void mouseClicked(MouseEvent e) {
                 if (labels[newX][y] != null) {
                     labels[newX][y].setOpaque(true);
                     labels[newX][y].setBackground(Color.RED);
-                    celdasRojas[newX][y] = true; 
+                    celdasRojas1[newX][y] = true; 
                     
                     currentRectangle.add(new Point(newX, y));
                 }
@@ -676,15 +510,15 @@ public void mouseClicked(MouseEvent e) {
                 if (labels[x][newY] != null) {
                     labels[x][newY].setOpaque(true);
                     labels[x][newY].setBackground(Color.RED);
-                    celdasRojas[x][newY] = true; 
+                    celdasRojas1[x][newY] = true; 
                     currentRectangle.add(new Point(x, newY));
                 }
             }
         }
-        redcells = new boolean[10][10];
+        redcells1 = new boolean[10][10];
         for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
-            redcells[i][j] = celdasRojas[i][j];
+            redcells1[i][j] = celdasRojas1[i][j];
         }
     }
     }
@@ -699,10 +533,9 @@ public void mouseClicked(MouseEvent e) {
             
         }
     }
-     cargar_Imag_Soun();
 }
 
-public static boolean[][] redcells;
+public static boolean[][] redcells1;
 
 
 
@@ -710,9 +543,136 @@ public void clearLabels(JLabel[][] labels, int x, int y) {
     if (x >= 1 && x <= 9 && y >= 1 && y <= 9 && labels[x][y] != null) {
         labels[x][y].setOpaque(false);
         labels[x][y].setBackground(null);
-        celdasRojas[x][y] = false; 
+        celdasRojas1[x][y] = false; 
     }
 }
+
+private Timer timer;
+/*
+public void AgregarPosicionesBarcos(JPanel panel, JTextField CoordenadasP1) {
+    panel.setLayout(new GridLayout(9, 9));
+    JLabel[][] labels = new JLabel[10][10];
+    for (int i = 1; i <= 9; i++) {
+    for (int j = 1; j <= 9; j++) {
+        final int x = j;
+        final int y = i;
+        labels[j][i] = new JLabel();
+        labels[j][i].setPreferredSize(new Dimension(45, 45));
+        labels[j][i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        labels[j][i].setHorizontalAlignment(SwingConstants.CENTER);
+        labels[j][i].setVerticalAlignment(SwingConstants.CENTER);
+        labels[j][i].setFont(new Font("Roboto Black", Font.BOLD, 36));
+        panel.add(labels[j][i]);
+    }
+}
+
+    CoordenadasP1.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String text = CoordenadasP1.getText();
+        if (text.length() == 3 && text.charAt(1) == ',') {
+            int y = text.toUpperCase().charAt(0) - 'A' + 1;
+            int x = Character.getNumericValue(text.charAt(2));
+            if (x >= 1 && x <= 9 && y >= 1 && y <= 9) {
+                System.out.println("Label presionado en la posición: (" + x + ", " + y + ")");
+                if (celdasR2[x][y]) {
+                    labels[x][y].setText("O");
+                    labels[x][y].setForeground(Color.RED);
+                } else {
+                    labels[x][y].setText("X");
+                    labels[x][y].setForeground(Color.WHITE);
+                }
+                
+                Timer timer = new Timer(2000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        esperar.esperar();
+                        hideFrame();
+                        esperar.setVisible(true);
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
+            }
+            else{     
+            Mensaje_Error.setText("Datos incorrectos!!");
+            Mensaje_Error.setVisible(true);
+            
+            }
+        }
+    }
+        });
+
+}
+*/
+
+private boolean[][] enteredCoordinates = new boolean[10][10];
+
+public void AgregarPosicionesBarcos(JPanel panel, JTextField CoordenadasP1) {
+    panel.setLayout(new GridLayout(9, 9));
+    JLabel[][] labels = new JLabel[10][10];
+    for (int i = 1; i <= 9; i++) {
+        for (int j = 1; j <= 9; j++) {
+            final int x = j;
+            final int y = i;
+            labels[j][i] = new JLabel();
+            labels[j][i].setPreferredSize(new Dimension(45, 45));
+            labels[j][i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+            labels[j][i].setHorizontalAlignment(SwingConstants.CENTER);
+            labels[j][i].setVerticalAlignment(SwingConstants.CENTER);
+            labels[j][i].setFont(new Font("Roboto Black", Font.BOLD, 36));
+            panel.add(labels[j][i]);
+        }
+    }
+
+    CoordenadasP1.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String text = CoordenadasP1.getText();
+            if (text.length() == 3 && text.charAt(1) == ',') {
+                int y = text.toUpperCase().charAt(0) - 'A' + 1;
+                int x = Character.getNumericValue(text.charAt(2));
+                if (x >= 1 && x <= 9 && y >= 1 && y <= 9) {
+                    if (enteredCoordinates[x][y]) {
+                        System.out.println("Coordinates already entered!");
+                        return;
+                    }
+                    
+                    System.out.println("Label presionado en la posición: (" + x + ", " + y + ")");
+                    enteredCoordinates[x][y] = true;
+                    
+                    if (celdasR2[x][y]) {
+                        labels[x][y].setText("O");
+                        labels[x][y].setForeground(Color.RED);
+                    } else {
+                        labels[x][y].setText("X");
+                        labels[x][y].setForeground(Color.WHITE);
+                    }
+                    
+                    Timer timer = new Timer(2000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            esperar.esperar();
+                            hideFrame();
+                            esperar.setVisible(true);
+                        }
+                    });
+                    timer.setRepeats(false);
+                    timer.start();
+                } else {
+                    Mensaje_Error.setText("Datos incorrectos!!");
+                    Mensaje_Error.setVisible(true);
+                }
+            }
+        }
+    });
+}
+
+
+
+
+
+
 
                                 
 
@@ -754,12 +714,11 @@ public void clearLabels(JLabel[][] labels, int x, int y) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Confirmar;
     private javax.swing.JPanel ConfirmarP;
-    private javax.swing.JTextField Coordenadas;
+    private javax.swing.JTextField CoordenadasP1;
     private javax.swing.JPanel CuadroBarcos;
     private javax.swing.JPanel Juego;
-    private javax.swing.JLabel MensajeCoordenadas;
-    private javax.swing.JToggleButton Music_boton;
-    private javax.swing.JLabel Music_icono;
+    private javax.swing.JLabel MensajeCoordenadasP1;
+    private javax.swing.JLabel Mensaje_Error;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
