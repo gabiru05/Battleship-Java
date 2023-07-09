@@ -115,7 +115,7 @@ public class Player2 extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("I");
+        jLabel3.setText("A");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 45, 45));
 
         jLabel4.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
@@ -165,37 +165,37 @@ public class Player2 extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("D");
+        jLabel13.setText("A");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 205, 45, 45));
 
         jLabel14.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("C");
+        jLabel14.setText("A");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 45, 45));
 
         jLabel15.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("E");
+        jLabel15.setText("A");
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 45, 45));
 
         jLabel16.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("B");
+        jLabel16.setText("A");
         jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 115, 45, 45));
 
         jLabel17.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("F");
+        jLabel17.setText("A");
         jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 295, 45, 45));
 
         jLabel18.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("H");
+        jLabel18.setText("A");
         jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 385, 45, 45));
 
         jLabel19.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("G");
+        jLabel19.setText("A");
         jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 45, 45));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
