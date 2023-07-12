@@ -2,6 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
+/*
+keneth benavidez
+jonathan reyes 
+gabriel ruiz
+*/
 package nombreusuario;
 
 import java.awt.BorderLayout;
@@ -261,10 +267,12 @@ public class nombres extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel2MouseClicked
 
+    
+   
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-   /*String nombreUsuario1 = nombreusuario1.getText();
-    String nombreUsuario2 = nombreusuario2.getText();
-    String patron = "^[a-zA-Z]{2,}[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚüÜ]*$";
+        /*String nombreUsuario1 = nombreusuario1.getText();
+        String nombreUsuario2 = nombreusuario2.getText();
+        String patron = "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,14}[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚüÜ]*$";
 
     if (nombreUsuario1.matches(patron) && nombreUsuario2.matches(patron)) {
         if (nombreUsuario1.equals(nombreUsuario2)) {
@@ -272,19 +280,15 @@ public class nombres extends javax.swing.JFrame {
             MensajeError.setText("Los nombres de usuario son iguales.");
             MensajeError.setVisible(true);
         } else {*/
-            Player1 nose = new Player1();
-           
-            nose.setVisible(true);
-            this.setVisible(false);
-        
-            
-        /*}
+            Player1 player1 = new Player1();
+            player1.setVisible(true);
+            this.setVisible(false);/*
+        }
     } else {
         // Mostrar mensaje de error en el panel
         MensajeError.setText("Los datos ingresados no son correctos.");
         MensajeError.setVisible(true);
-    }*/
-        
+    }*/     
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
