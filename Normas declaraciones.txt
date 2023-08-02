@@ -1,0 +1,14 @@
+Pan_nombre == jpanel
+
+
+Tex_nombre == jlabel
+Tex_Function__nombre == jlabel //Function == Show-Msg/Hide + dato
+
+
+TexIma_type__nombre == jlabel //replaced with image
+//type == icon-backg-pict
+
+
+Field_nombre == jtexfield
+Field_Function__nombre == jtexfield //Function == GET + dato
+

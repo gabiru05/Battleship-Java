@@ -3,11 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-/*
-keneth benavidez
-jonathan reyes 
-gabriel ruiz
-*/
+
 package nombreusuario;
 
 import java.awt.BorderLayout;
@@ -18,22 +14,20 @@ import javax.swing.Timer;
 
 
 
-/**
- *
- * @author kenet
- */
 public class nombres extends javax.swing.JFrame {
 
     /**
      * Creates new form nombres
      */
     int xMouse,yMouse;
+    public String nombreJugador1;
+    public String nombreJugador2;
+    
     public nombres() {
         initComponents();
-        nombreusuario1.setFocusable(false);
-        nombreusuario2.setFocusable(false);
+        Field_Nam__player1.setFocusable(false);
+        Field_Nam__player2.setFocusable(false);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,21 +37,21 @@ public class nombres extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        BG = new javax.swing.JPanel();
-        imagenbarco = new javax.swing.JLabel();
-        logo = new javax.swing.JLabel();
-        textoiniciosesion = new javax.swing.JLabel();
-        usuario1 = new javax.swing.JLabel();
-        nombreusuario1 = new javax.swing.JTextField();
+        Pan_background = new javax.swing.JPanel();
+        TexIma_backg__ship = new javax.swing.JLabel();
+        TexIma_icon__logo = new javax.swing.JLabel();
+        Tex_startgame = new javax.swing.JLabel();
+        Tex_player1 = new javax.swing.JLabel();
+        Field_Nam__player1 = new javax.swing.JTextField();
         separadorusuario1 = new javax.swing.JSeparator();
-        usuario2 = new javax.swing.JLabel();
-        nombreusuario2 = new javax.swing.JTextField();
+        Tex_player2 = new javax.swing.JLabel();
+        Field_Nam__player2 = new javax.swing.JTextField();
         separadorusuario2 = new javax.swing.JSeparator();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        MensajeError = new javax.swing.JLabel();
+        Pan_entrar = new javax.swing.JPanel();
+        Tex_entrar = new javax.swing.JLabel();
+        Pan_salir = new javax.swing.JPanel();
+        Tex_salir = new javax.swing.JLabel();
+        Tex_Msg__Error = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,131 +60,121 @@ public class nombres extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setResizable(false);
 
-        BG.setBackground(new java.awt.Color(255, 255, 255));
-        BG.setPreferredSize(new java.awt.Dimension(800, 500));
-        BG.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Pan_background.setBackground(new java.awt.Color(255, 255, 255));
+        Pan_background.setPreferredSize(new java.awt.Dimension(800, 500));
+        Pan_background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        imagenbarco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/Portada.jpg"))); // NOI18N
-        imagenbarco.setText("jLabel1");
-        BG.add(imagenbarco, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 400, 500));
+        TexIma_backg__ship.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/Portada.jpg"))); // NOI18N
+        TexIma_backg__ship.setText("jLabel1");
+        Pan_background.add(TexIma_backg__ship, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 400, 500));
 
-        logo.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/LogoaPortadaBattleShip.jpeg"))); // NOI18N
-        logo.setText("Battleship");
-        BG.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        TexIma_icon__logo.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
+        TexIma_icon__logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/LogoaPortadaBattleShip.jpeg"))); // NOI18N
+        TexIma_icon__logo.setText("Battleship");
+        Pan_background.add(TexIma_icon__logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
-        textoiniciosesion.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        textoiniciosesion.setText("INICIAR JUEGO");
-        BG.add(textoiniciosesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+        Tex_startgame.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        Tex_startgame.setText("INICIAR JUEGO");
+        Pan_background.add(Tex_startgame, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
 
-        usuario1.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
-        usuario1.setText("JUGADOR 1");
-        BG.add(usuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 160, 30));
+        Tex_player1.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
+        Tex_player1.setText("JUGADOR 1");
+        Pan_background.add(Tex_player1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 160, 30));
 
-        nombreusuario1.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        nombreusuario1.setForeground(new java.awt.Color(153, 153, 153));
-        nombreusuario1.setText("Por favor. Ingrese su nombre");
-        nombreusuario1.setBorder(null);
-        nombreusuario1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Field_Nam__player1.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        Field_Nam__player1.setForeground(new java.awt.Color(153, 153, 153));
+        Field_Nam__player1.setText("Por favor. Ingrese su nombre");
+        Field_Nam__player1.setBorder(null);
+        Field_Nam__player1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                nombreusuario1MousePressed(evt);
+                Field_Nam__player1MousePressed(evt);
             }
         });
-        nombreusuario1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreusuario1ActionPerformed(evt);
-            }
-        });
-        BG.add(nombreusuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 330, 20));
+        Pan_background.add(Field_Nam__player1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 330, 20));
 
         separadorusuario1.setBackground(new java.awt.Color(0, 0, 0));
         separadorusuario1.setForeground(new java.awt.Color(0, 0, 0));
-        BG.add(separadorusuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 330, 20));
+        Pan_background.add(separadorusuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 330, 20));
 
-        usuario2.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
-        usuario2.setText("JUGADOR 2");
-        BG.add(usuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 160, 30));
+        Tex_player2.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
+        Tex_player2.setText("JUGADOR 2");
+        Pan_background.add(Tex_player2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 160, 30));
 
-        nombreusuario2.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        nombreusuario2.setForeground(new java.awt.Color(153, 153, 153));
-        nombreusuario2.setText("Por favor. Ingrese su nombre");
-        nombreusuario2.setBorder(null);
-        nombreusuario2.addMouseListener(new java.awt.event.MouseAdapter() {
+        Field_Nam__player2.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        Field_Nam__player2.setForeground(new java.awt.Color(153, 153, 153));
+        Field_Nam__player2.setText("Por favor. Ingrese su nombre");
+        Field_Nam__player2.setBorder(null);
+        Field_Nam__player2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                nombreusuario2MousePressed(evt);
+                Field_Nam__player2MousePressed(evt);
             }
         });
-        nombreusuario2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreusuario2ActionPerformed(evt);
-            }
-        });
-        BG.add(nombreusuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 330, 20));
+        Pan_background.add(Field_Nam__player2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 330, 20));
 
         separadorusuario2.setBackground(new java.awt.Color(0, 0, 0));
         separadorusuario2.setForeground(new java.awt.Color(0, 0, 0));
-        BG.add(separadorusuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 330, 20));
+        Pan_background.add(separadorusuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 330, 20));
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        Pan_entrar.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel1.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ENTRAR");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Tex_entrar.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
+        Tex_entrar.setForeground(new java.awt.Color(255, 255, 255));
+        Tex_entrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Tex_entrar.setText("ENTRAR");
+        Tex_entrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Tex_entrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                Tex_entrarMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout Pan_entrarLayout = new javax.swing.GroupLayout(Pan_entrar);
+        Pan_entrar.setLayout(Pan_entrarLayout);
+        Pan_entrarLayout.setHorizontalGroup(
+            Pan_entrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Tex_entrar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        Pan_entrarLayout.setVerticalGroup(
+            Pan_entrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Tex_entrar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        BG.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, 40));
+        Pan_background.add(Pan_entrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, 40));
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        Pan_salir.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel2.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("SALIR");
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        Tex_salir.setFont(new java.awt.Font("Roboto Light", 1, 16)); // NOI18N
+        Tex_salir.setForeground(new java.awt.Color(255, 255, 255));
+        Tex_salir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Tex_salir.setText("SALIR");
+        Tex_salir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Tex_salir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                Tex_salirMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout Pan_salirLayout = new javax.swing.GroupLayout(Pan_salir);
+        Pan_salir.setLayout(Pan_salirLayout);
+        Pan_salirLayout.setHorizontalGroup(
+            Pan_salirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Pan_salirLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Tex_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        Pan_salirLayout.setVerticalGroup(
+            Pan_salirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Pan_salirLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Tex_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        BG.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, -1, 40));
+        Pan_background.add(Pan_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, -1, 40));
 
-        MensajeError.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        MensajeError.setForeground(new java.awt.Color(255, 0, 0));
-        MensajeError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        BG.add(MensajeError, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 330, 20));
+        Tex_Msg__Error.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        Tex_Msg__Error.setForeground(new java.awt.Color(255, 0, 0));
+        Tex_Msg__Error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Pan_background.add(Tex_Msg__Error, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 330, 20));
 
         content.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -205,20 +189,20 @@ public class nombres extends javax.swing.JFrame {
             .addGap(0, 500, Short.MAX_VALUE)
         );
 
-        BG.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        Pan_background.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(BG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Pan_background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(BG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Pan_background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -226,120 +210,99 @@ public class nombres extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nombreusuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreusuario1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreusuario1ActionPerformed
-
-    private void nombreusuario2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreusuario2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreusuario2ActionPerformed
-
     
-    private void nombreusuario1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreusuario1MousePressed
-         if (nombreusuario1.getText().equals("Por favor. Ingrese su nombre")){
-            nombreusuario1.setFocusable(true);
-            nombreusuario1.requestFocusInWindow();
-            nombreusuario1.setText("");
-            nombreusuario1.setForeground(Color.black);
+    private void Field_Nam__player1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Field_Nam__player1MousePressed
+        if (Field_Nam__player1.getText().equals("Por favor. Ingrese su nombre")){
+            Field_Nam__player1.setFocusable(true);
+            Field_Nam__player1.requestFocusInWindow();
+            Field_Nam__player1.setText("");
+            Field_Nam__player1.setForeground(Color.black);
         }
-        if(nombreusuario2.getText().isEmpty()){
-            nombreusuario2.setFocusable(false);
-            nombreusuario2.setText("Por favor. Ingrese su nombre");
-            nombreusuario2.setForeground(Color.gray);
+        if(Field_Nam__player2.getText().isEmpty()){
+            Field_Nam__player2.setFocusable(false);
+            Field_Nam__player2.setText("Por favor. Ingrese su nombre");
+            Field_Nam__player2.setForeground(Color.gray);
         }
-    }//GEN-LAST:event_nombreusuario1MousePressed
+    }//GEN-LAST:event_Field_Nam__player1MousePressed
 
-    private void nombreusuario2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreusuario2MousePressed
-         if (nombreusuario2.getText().equals("Por favor. Ingrese su nombre")){
-            nombreusuario2.setFocusable(true);
-            nombreusuario2.requestFocusInWindow();
-            nombreusuario2.setText("");
-            nombreusuario2.setForeground(Color.black);
+    private void Field_Nam__player2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Field_Nam__player2MousePressed
+        if (Field_Nam__player2.getText().equals("Por favor. Ingrese su nombre")){
+            Field_Nam__player2.setFocusable(true);
+            Field_Nam__player2.requestFocusInWindow();
+            Field_Nam__player2.setText("");
+            Field_Nam__player2.setForeground(Color.black);
         }
-        if(nombreusuario1.getText().isEmpty()){
-            nombreusuario1.setFocusable(false);
-            nombreusuario1.setText("Por favor. Ingrese su nombre");
-            nombreusuario1.setForeground(Color.gray);
+        if(Field_Nam__player1.getText().isEmpty()){
+            Field_Nam__player1.setFocusable(false);
+            Field_Nam__player1.setText("Por favor. Ingrese su nombre");
+            Field_Nam__player1.setForeground(Color.gray); 
         }
-    }//GEN-LAST:event_nombreusuario2MousePressed
+    }//GEN-LAST:event_Field_Nam__player2MousePressed
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void Tex_salirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tex_salirMouseClicked
         System.exit(0);
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_Tex_salirMouseClicked
 
     
    
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        /*String nombreUsuario1 = nombreusuario1.getText();
-        String nombreUsuario2 = nombreusuario2.getText();
-        String patron = "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,14}[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚüÜ]*$";
-
-    if (nombreUsuario1.matches(patron) && nombreUsuario2.matches(patron)) {
-        if (nombreUsuario1.equals(nombreUsuario2)) {
-            // Mostrar mensaje de error en el panel
-            MensajeError.setText("Los nombres de usuario son iguales.");
-            MensajeError.setVisible(true);
-        } else {*/
-            Player1 player1 = new Player1();
-            player1.setVisible(true);
-            this.setVisible(false);/*
-        }
+    private void Tex_entrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tex_entrarMouseClicked
+       nombreJugador1 = Field_Nam__player1.getText().trim();
+    nombreJugador2 = Field_Nam__player2.getText().trim();
+    
+    //Validad Ingresen bien nombre -no vacio -no texto default -tenga letras o numeros
+    if (nombreJugador1.isEmpty() || nombreJugador2.isEmpty() ||
+        !nombreJugador1.matches("[a-zA-Z0-9]+") ||
+        !nombreJugador2.matches("[a-zA-Z0-9]+") ||
+        nombreJugador1.equals("Por favor. Ingrese su nombre") || 
+        nombreJugador2.equals("Por favor. Ingrese su nombre")) {
+        // Los corchetes ([]) indican una clase de caracteres, y el signo más (+) indica que los caracteres dentro de la clase deben aparecer una o más veces en la cadena.
+        
+        // Mostrar mensaje de error si no ingresan bien el nombre
+        Tex_Msg__Error.setText("Por favor, ingrese nombres válidos para ambos jugadores.");
+        Tex_Msg__Error.setVisible(true);
     } else {
-        // Mostrar mensaje de error en el panel
-        MensajeError.setText("Los datos ingresados no son correctos.");
-        MensajeError.setVisible(true);
-    }*/     
-    }//GEN-LAST:event_jLabel1MouseClicked
+        
+        //Si los datos estan bien ingresados continuar
+        System.out.println("Nombre del jugador 1: " + nombreJugador1);
+        System.out.println("Nombre del jugador 2: " + nombreJugador2);
+
+        
+        //Mostramos siguiente clase o panel
+        Player1 player1 = new Player1();
+        player1.setVisible(true);
+        //ocultamos panel actual
+        this.setVisible(false);
+    }
+    }//GEN-LAST:event_Tex_entrarMouseClicked
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
 
-         //No se que hace pero me parece puede ser removido -- mientras lo comento
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
- 
-        
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new nombres().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new nombres().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel BG;
-    private javax.swing.JLabel MensajeError;
+    private javax.swing.JTextField Field_Nam__player1;
+    private javax.swing.JTextField Field_Nam__player2;
+    private javax.swing.JPanel Pan_background;
+    private javax.swing.JPanel Pan_entrar;
+    private javax.swing.JPanel Pan_salir;
+    private javax.swing.JLabel TexIma_backg__ship;
+    private javax.swing.JLabel TexIma_icon__logo;
+    private javax.swing.JLabel Tex_Msg__Error;
+    private javax.swing.JLabel Tex_entrar;
+    private javax.swing.JLabel Tex_player1;
+    private javax.swing.JLabel Tex_player2;
+    private javax.swing.JLabel Tex_salir;
+    private javax.swing.JLabel Tex_startgame;
     private javax.swing.JPanel content;
-    private javax.swing.JLabel imagenbarco;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel logo;
-    private javax.swing.JTextField nombreusuario1;
-    private javax.swing.JTextField nombreusuario2;
     private javax.swing.JSeparator separadorusuario1;
     private javax.swing.JSeparator separadorusuario2;
-    private javax.swing.JLabel textoiniciosesion;
-    private javax.swing.JLabel usuario1;
-    private javax.swing.JLabel usuario2;
     // End of variables declaration//GEN-END:variables
 }
